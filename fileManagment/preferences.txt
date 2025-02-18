@@ -1,0 +1,2 @@
+/Users/algi/Documents/Uni/2° Anno/2^ Semestre/Ingegneria del software/Esercizi/Progetto Movie/repo/fileManagment/imdb_top_1000.csv
+/Users/algi/Documents/Uni/2° Anno/2^ Semestre/Ingegneria del software/Esercizi/Progetto Movie/repo/fileManagment/
