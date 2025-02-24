@@ -16,11 +16,11 @@ public class Movie {
     private Person director;
     //per salvare le start max 4
 
-    private Optional<Person>[] stars=new Optional[4];
+    private Person[] stars=new Person[4];
     private int noOfVotes;
     private String gross;
 
-    public Movie(String posterLink, String seriesTitle, int releasedYear, String certificate, double runtime, String genre, double IMDBRating, String overview, String metaScore, Person director, Optional<Person>[] stars, int noOfVotes, String gross) {
+    public Movie(String posterLink, String seriesTitle, int releasedYear, String certificate, double runtime, String genre, double IMDBRating, String overview, String metaScore, Person director, Person[] stars, int noOfVotes, String gross) {
         this.posterLink = posterLink;
         this.seriesTitle = seriesTitle;
         this.releasedYear = releasedYear;
@@ -76,7 +76,7 @@ public class Movie {
         return director;
     }
 
-    public Optional<Person>[] getStars() {
+    public Person[] getStars() {
         return stars;
     }
 
