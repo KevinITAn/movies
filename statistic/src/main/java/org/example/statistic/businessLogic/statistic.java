@@ -3,41 +3,37 @@ package org.example.statistic.businessLogic;
 import org.example.statistic.models.Movie;
 import org.example.statistic.models.Person;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class statistic {
-    List<Movie> listMovies=new ArrayList<>();//questa lista è un esempio
+    private List<Movie> listMovies = new ArrayList<>(); // Lista di film
 
-
-    public int numberOfMovies(){
+    public int numberOfMovies() {
         return listMovies.size();
     }
 
-    public double averageMoviesTime(){
+    public double averageMoviesTime() {
         return listMovies.stream()
-                .mapToDouble(movie -> movie.getRuntime())
-                .average().getAsDouble();
+                .mapToDouble(Movie::getRuntime)
+                .average()
+                .orElse(0.0);
     }
 
-    public Person bestDirector(){
-        //su metaScore?
+    public Person bestDirector() {
+        return null;//TODO
     }
 
-    public Person  mostPresentActor(){
-
+    public Person mostPresentActor() {
+        //TODO fare la mappa<actor,numeroDiPresenza> limitare a 1
     }
 
-    //prende tutti i actor
-    private List<Person> getAllActor(){
-        List<Person> personList=new ArrayList<>();
-        for(Movie tmp:listMovies){
-
-        }
+    public int mostProductiveYear() {
+        return listMovies.stream()
+                .collect(Collectors.groupingBy(Movie::getReleasedYear, Collectors.counting()))
+                .entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(-1);
     }
-
-    public Person mostProductiveYears(){
-
-    }
-
 }
