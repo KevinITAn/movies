@@ -6,7 +6,7 @@ public class Movie {
     private String seriesTitle ;
     private int releasedYear;
     private String certificate;
-    private String runtime;
+    private double runtime;
     private String genre;
     private double IMDBRating;
     private String overview;
@@ -20,7 +20,7 @@ public class Movie {
     private int noOfVotes;
     private String gross;
 
-    public Movie(String posterLink, String seriesTitle, int releasedYear, String certificate, String runtime, String genre, double IMDBRating, String overview, String metaScore, Person director, Optional<Person>[] stars, int noOfVotes, String gross) {
+    public Movie(String posterLink, String seriesTitle, int releasedYear, String certificate, double runtime, String genre, double IMDBRating, String overview, String metaScore, Person director, Optional<Person>[] stars, int noOfVotes, String gross) {
         this.posterLink = posterLink;
         this.seriesTitle = seriesTitle;
         this.releasedYear = releasedYear;
@@ -34,5 +34,57 @@ public class Movie {
         this.stars = stars;
         this.noOfVotes = noOfVotes;
         this.gross = gross;
+    }
+
+    public String getPosterLink() {
+        return posterLink;
+    }
+
+    public String getSeriesTitle() {
+        return seriesTitle;
+    }
+
+    public int getReleasedYear() {
+        return releasedYear;
+    }
+
+    public String getCertificate() {
+        return certificate;
+    }
+
+    public double getRuntime() {
+        return runtime;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public double getIMDBRating() {
+        return IMDBRating;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public String getMetaScore() {
+        return metaScore;
+    }
+
+    public Person getDirector() {
+        return director;
+    }
+
+    public Optional<Person>[] getStars() {
+        return stars;
+    }
+
+    public int getNoOfVotes() {
+        return noOfVotes;
+    }
+
+    public String getGross() {
+        return gross;
     }
 }
