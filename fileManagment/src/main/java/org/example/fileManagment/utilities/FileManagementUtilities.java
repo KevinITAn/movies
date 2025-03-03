@@ -17,7 +17,7 @@ public class FileManagementUtilities {
     private static String outputFile;
 
     //TODO cambiare la firma del metodo per far returnare una lista di oggetti presi dal file
-    static public void readFromCSV(String inputFile) {
+    static public List<Movie> readFromCSV(String inputFile) {
         String filePath = new File(inputFile).getAbsolutePath();
         List<Movie> list = new ArrayList<>();
 
@@ -52,26 +52,49 @@ public class FileManagementUtilities {
 
             System.out.println(list);
 
-
-            //ho le stringhe che devono essere convertite in oggetti
-            //TODO da togliere i commenti quando implementato il movie
-            //list.add(new Movie(arr));
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return list;
     }
-/*
-    static public boolean writeOnCSV() {
+
+    static public boolean writeOnCSV(List<Movie> movies) {
         String filePath = new File(outputFile).getAbsolutePath();
 
-        try (BufferedWriter wr = new BufferedWriter(new FileWriter(filePath))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+            CSVPrinter printer = new CSVPrinter(bw, CSVFormat.DEFAULT.withHeader(
+                "Poster_Link", "Series_Title", "Released_Year", "Certificate", "Runtime", "Genre", "IMDB_Rating", "Overview",
+                "Meta_score", "Director", "Star1", "Star2", "Star3", "Star4", "No_of_Votes", "Gross"));
 
+            for (Movie movie : movies) {
+                printer.printRecord(
+                    movie.getPosterLink(),
+                    movie.getSeriesTitle(),
+                    movie.getReleasedYear(),
+                    movie.getCertificate(),
+                    movie.getRuntime() + " min",
+                    movie.getGenre(),
+                    movie.getIMDBRating(),
+                    movie.getOverview(),
+                    movie.getMetaScore(),
+                    movie.getDirector().getName(),
+                    movie.getStars()[0].getName(),
+                    movie.getStars()[1].getName(),
+                    movie.getStars()[2].getName(),
+                    movie.getStars()[3].getName(),
+                    movie.getNoOfVotes(),
+                    movie.getGross()
+                );
+            }
+
+            printer.flush();
+            return true;
         } catch (IOException e) {
-
+            e.printStackTrace();
+            return false;
         }
     }
-*/
+
     static public void readConfiguration(){
         try {
             File myObj = new File("fileManagment/preferences.txt");
