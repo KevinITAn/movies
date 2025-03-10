@@ -13,10 +13,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
 
 
-        statistic x = new statistic();
-
-        FileManagementUtilities.writeOnCSV(new ArrayList<Movie>());
-
-        System.out.println(x.numberOfMovies());
+        FileManagementUtilities.writeOnCSV();
     }
 }

@@ -13,8 +13,8 @@ public class statistic {
     private List<Movie> listMovies = new ArrayList<>(); // Lista di film
 
 
-    public statistic(){
-        listMovies=FileManagementUtilities.readFromCSV("C:\\Users\\kevin\\Documents\\GitHub\\movies\\fileManagment\\imdb_top_1000.csv");
+    public statistic(String pathIn){
+        listMovies=FileManagementUtilities.readFromCSV(pathIn);
     }
 
     public int numberOfMovies() {

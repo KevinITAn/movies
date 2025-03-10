@@ -1,6 +1,7 @@
 package org.example.fileManagment.utilities;
 
 import org.apache.commons.csv.*;
+import org.example.fileManagment.logic.businessLogic.statistic;
 import org.example.fileManagment.logic.models.Movie;
 import org.example.fileManagment.logic.models.Person;
 
@@ -60,7 +61,7 @@ public class FileManagementUtilities {
         return list;
     }
 
-    static public boolean writeOnCSV(List<Movie> movies) throws IOException {
+    static public boolean writeOnCSV() throws IOException {
         readConfiguration();
         File fileOut;
 
@@ -90,41 +91,17 @@ public class FileManagementUtilities {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileOut))) {
             CSVPrinter printer = new CSVPrinter(bw, CSVFormat.DEFAULT.withHeader(
-                "Poster_Link", "Series_Title", "Released_Year", "Certificate", "Runtime", "Genre", "IMDB_Rating", "Overview",
-                "Meta_score", "Director", "Star1", "Star2", "Star3", "Star4", "No_of_Votes", "Gross"));
+                "Number_Of_Movies", "Average_Movies_Time", "Best_Director", "Most_Present_Actor", "Most_Productive_Year"));
 
-            for (Movie movie : movies) {
-                printer.printRecord(
-                    movie.getPosterLink(),
-                    movie.getSeriesTitle(),
-                    movie.getReleasedYear(),
-                    movie.getCertificate(),
-                    movie.getRuntime() + " min",
-                    movie.getGenre(),
-                    movie.getIMDBRating(),
-                    movie.getOverview(),
-                    movie.getMetaScore(),
-                    movie.getDirector().getName(),
-                    movie.getStars()[0].getName(),
-                    movie.getStars()[1].getName(),
-                    movie.getStars()[2].getName(),
-                    movie.getStars()[3].getName(),
-                    movie.getNoOfVotes(),
-                    movie.getGross()
-                );
-            }
+            statistic x = new statistic(inputFile);
+
+            printer.print(x.numberOfMovies());
+            printer.print(x.averageMoviesTime());
+            printer.print(x.bestDirector());
+            printer.print(x.mostPresentActor());
+            printer.print(x.mostProductiveYear());
 
             printer.flush();
-
-            //control path
-
-
-
-
-
-
-
-
 
             return true;
         } catch (IOException e) {
