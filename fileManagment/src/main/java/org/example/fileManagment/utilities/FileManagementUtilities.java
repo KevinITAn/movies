@@ -1,8 +1,8 @@
 package org.example.fileManagment.utilities;
 
 import org.apache.commons.csv.*;
-import org.example.statistic.models.Movie;
-import org.example.statistic.models.Person;
+import org.example.fileManagment.logic.models.Movie;
+import org.example.fileManagment.logic.models.Person;
 
 import java.io.*;
 
@@ -12,6 +12,8 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class FileManagementUtilities {
+
+
 
     private static String inputFile;
     private static String outputFile;
@@ -58,10 +60,35 @@ public class FileManagementUtilities {
         return list;
     }
 
-    static public boolean writeOnCSV(List<Movie> movies) {
-        String filePath = new File(outputFile).getAbsolutePath();
+    static public boolean writeOnCSV(List<Movie> movies) throws IOException {
+        readConfiguration();
+        File fileOut;
 
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(filePath))) {
+        //se path==null
+        try{
+              fileOut= new File(outputFile);
+        }catch (NullPointerException e){
+            System.out.println("Path is empty so I write in "+inputFile);
+            fileOut=new File(inputFile);
+        }
+
+        //se path non esiste
+        if(!fileOut.exists() ){
+             //directory
+            fileOut.getParentFile().mkdir();
+            //file
+            fileOut.createNewFile();
+
+            System.out.println("statistics written to"+fileOut.getAbsolutePath());
+        }else{
+                 //esiste                                                                        
+                System.out.println("statistics overwritten onto"+fileOut.getAbsolutePath());   }
+
+
+
+
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileOut))) {
             CSVPrinter printer = new CSVPrinter(bw, CSVFormat.DEFAULT.withHeader(
                 "Poster_Link", "Series_Title", "Released_Year", "Certificate", "Runtime", "Genre", "IMDB_Rating", "Overview",
                 "Meta_score", "Director", "Star1", "Star2", "Star3", "Star4", "No_of_Votes", "Gross"));
@@ -88,6 +115,17 @@ public class FileManagementUtilities {
             }
 
             printer.flush();
+
+            //control path
+
+
+
+
+
+
+
+
+
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,7 +133,7 @@ public class FileManagementUtilities {
         }
     }
 
-    static public void readConfiguration(){
+    static private void readConfiguration(){
         try {
             File myObj = new File("fileManagment/preferences.txt");
             Scanner myReader = new Scanner(myObj);
