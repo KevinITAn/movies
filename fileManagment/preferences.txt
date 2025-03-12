@@ -1,2 +1,2 @@
-imdb_top_1000.csv
-C:\Users\kevin\Desktop\test\prova.txt
+C:\Users\kevin\Documents\GitHub\movies\fileManagment\imdb_top_1000.csv
+C:\Users\kevin\Desktop\test\prova.csv

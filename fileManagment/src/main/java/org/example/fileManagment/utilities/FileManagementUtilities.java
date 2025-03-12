@@ -93,13 +93,13 @@ public class FileManagementUtilities {
             CSVPrinter printer = new CSVPrinter(bw, CSVFormat.DEFAULT.withHeader(
                 "Number_Of_Movies", "Average_Movies_Time", "Best_Director", "Most_Present_Actor", "Most_Productive_Year"));
 
-            statistic x = new statistic(inputFile);
+            statistic statistic = new statistic(inputFile);
 
-            printer.print(x.numberOfMovies());
-            printer.print(x.averageMoviesTime());
-            printer.print(x.bestDirector());
-            printer.print(x.mostPresentActor());
-            printer.print(x.mostProductiveYear());
+            printer.print(statistic.numberOfMovies());
+            printer.print(statistic.averageMoviesTime());
+            printer.print(statistic.bestDirector());
+            printer.print(statistic.mostPresentActor());
+            printer.print(statistic.mostProductiveYear());
 
             printer.flush();
 

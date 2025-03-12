@@ -1,15 +1,15 @@
 package org.example.fileManagment.logic.models;
 
 public class Movie {
-    private String posterLink;
-    private String seriesTitle ;
-    private int releasedYear;
-    private String certificate;
-    private double runtime;
-    private String genre;
-    private double IMDBRating;
-    private String overview;
-    private String metaScore;
+    private final String posterLink;
+    private final String seriesTitle ;
+    private final int releasedYear;
+    private final String certificate;
+    private final double runtime;
+    private final String genre;
+    private final double IMDBRating;
+    private final String overview;
+    private final String metaScore;
 
     //direcctor
     private Person director;

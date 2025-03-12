@@ -1,5 +1,7 @@
 package org.example.fileManagment.logic.models;
 
+import java.util.Objects;
+
 public class Person {
     private String name;
     private String surname;
@@ -23,6 +25,10 @@ public class Person {
         return new Person(name, secondName, surname);
     }
 
+
+
+
+
     public String getName() {
         return name;
     }
@@ -33,5 +39,27 @@ public class Person {
 
     public String getSurname() {
         return surname;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Person person = (Person) object;
+        return Objects.equals(name, person.name) && Objects.equals(surname, person.surname) && Objects.equals(secondName, person.secondName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, secondName);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", secondName='" + secondName + '\'' +
+                '}';
     }
 }
