@@ -18,8 +18,6 @@ public class FileManagementUtilities {
 
     private static String inputFile;
     private static String outputFile;
-
-    //TODO cambiare la firma del metodo per far returnare una lista di oggetti presi dal file
     static public List<Movie> readFromCSV(String inputFile) {
         String filePath = new File(inputFile).getAbsolutePath();
         List<Movie> list = new ArrayList<>();
@@ -48,12 +46,9 @@ public class FileManagementUtilities {
                 String gross = record.get("Gross");
 
                 //ho pronti tutti i campi, ora devo creare gli oggetti movie(s)
-                //TODO da togliere i commenti quando implementato il movie
                 Person[] stars = {Person.buildPerson(star1), Person.buildPerson(star2), Person.buildPerson(star3), Person.buildPerson(star4)};
                 list.add(new Movie(posterLink, seriesTitle, releasedYear, certificate, runtime, genre, IMDBRating, overview, metaScore, Person.buildPerson(director), stars,noOfVotes, gross));
             }
-
-            System.out.println(list);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -85,10 +80,6 @@ public class FileManagementUtilities {
                  //esiste                                                                        
                 System.out.println("statistics overwritten onto"+fileOut.getAbsolutePath());   }
 
-
-
-
-
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(fileOut))) {
             CSVPrinter printer = new CSVPrinter(bw, CSVFormat.DEFAULT.withHeader(
                 "Number_Of_Movies", "Average_Movies_Time", "Best_Director", "Most_Present_Actor", "Most_Productive_Year"));
@@ -110,18 +101,34 @@ public class FileManagementUtilities {
         }
     }
 
-    static private void readConfiguration(){
+    static private void readConfiguration() {
         try {
-            File myObj = new File("fileManagment/preferences.txt");
-            Scanner myReader = new Scanner(myObj);
-            //controlli mancante
-            inputFile= myReader.nextLine();
-            outputFile=myReader.nextLine();
+            // Trova il percorso della cartella dove si trova il JAR
+            String jarDir = new File(FileManagementUtilities.class.getProtectionDomain()
+                    .getCodeSource().getLocation().toURI()).getParent();
+
+            File preferencesFile = new File(jarDir, "preferences.txt");
+
+            // Controlla se il file esiste, altrimenti termina il programma
+            if (!preferencesFile.exists()) {
+                System.err.println("ERRORE: Il file 'preferences.txt' non esiste nella cartella del JAR!");
+                System.err.println("Crealo manualmente con i percorsi di input e output.");
+                System.exit(1);
+            }
+
+            // Legge il file di configurazione
+            Scanner myReader = new Scanner(preferencesFile);
+            inputFile = myReader.nextLine();
+            outputFile = myReader.nextLine();
             myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage() + "...\nTerminated.");
+
+        } catch (Exception e) {
+            System.err.println("Errore nella lettura delle configurazioni: " + e.getMessage());
+            System.exit(1);
         }
-        System.out.println(inputFile);
-        System.out.println(outputFile);
+
+        System.out.println("File di configurazione caricato con successo.");
+
     }
+
 }

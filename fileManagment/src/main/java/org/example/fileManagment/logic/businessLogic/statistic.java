@@ -41,19 +41,16 @@ public class statistic {
     }
 
     public Person mostPresentActor() {
-        Map<Person, Integer> countMap = new HashMap<>();
+        Map<Person, Long> starCounts = listMovies.stream()
+                .flatMap(movie -> Arrays.stream(movie.getStars())) // Converti array in stream
+                .collect(Collectors.groupingBy(star -> star, Collectors.counting()));
 
-        // Conta le presenze di ogni regista
-        for (Movie movie : listMovies) {
-            Person director = movie.getDirector();
-            countMap.put(director, cntPresenze(director));
-        }
-        //ritorno il max
-        //TODO ricontrolla
-        return Collections.max(countMap.entrySet(), Map.Entry.comparingByValue()).getKey();
-        //Map.Entry.comparingByValue())
-        //Map.Entry.comparingByValue() -> comparatore che ordina mappa per valore 1,2,3
+        return starCounts.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
     }
+
 
     private int cntPresenze(Person personSrc){
         return Collections.frequency(listMovies,personSrc);
